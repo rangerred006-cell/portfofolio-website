@@ -161,7 +161,7 @@ export default function Home() {
         <div className="container mx-auto max-w-6xl text-center relative z-10">
           <div className="animate-fade-in">
             <div className="inline-block mb-6">
-              <Badge className="text-sm px-4 py-2 animate-scale-in">Available for work</Badge>
+              <Badge className="text-sm px-4 py-2 animate-scale-in">Close For Now</Badge>
             </div>
 
             <h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black mb-8 leading-none">
