@@ -31,12 +31,11 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
 
   // NOTE: styleVars dipakai untuk override warna card khusus halaman ini (kalau theme ada).
   // Kita mendorong nilai HSL (tanpa hsl()) ke custom CSS variables yang dipakai Tailwind: hsl(var(--card))
+  // NOTE: styleVars dipakai untuk override warna card khusus halaman ini (kalau theme ada).
+  // Kita mendorong nilai HSL (tanpa hsl()) ke custom CSS variables yang dipakai Tailwind: hsl(var(--card))
   const styleVars = {
-    // @ts-expect-error -- kita sengaja injek CSS var custom
     ["--card"]: project.theme?.card,
-    // @ts-expect-error
     ["--card-foreground"]: project.theme?.cardForeground,
-    // @ts-expect-error
     ["--border"]: project.theme?.border,
   } as React.CSSProperties;
 
