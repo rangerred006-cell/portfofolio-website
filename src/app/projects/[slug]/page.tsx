@@ -22,15 +22,17 @@ export async function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }
 
-export default function ProjectDetail({ params }: { params: { slug: string } }) {
-  const project = getProjectBySlug(params.slug);
+// PERUBAHAN 1: Tambahin 'async' di depan fungsi
+// PERUBAHAN 2: Tipe params-nya jadi Promise
+export default async function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
+  // PERUBAHAN 3: 'await' params dulu sebelum dipakai
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
   if (!project) return notFound();
 
   // NOTE: cover fallback → pakai cover khusus, kalau kosong pakai image utama, kalau kosong juga pakai /wlp.png
   const cover = project.cover || project.image || "/wlp.png";
 
-  // NOTE: styleVars dipakai untuk override warna card khusus halaman ini (kalau theme ada).
-  // Kita mendorong nilai HSL (tanpa hsl()) ke custom CSS variables yang dipakai Tailwind: hsl(var(--card))
   // NOTE: styleVars dipakai untuk override warna card khusus halaman ini (kalau theme ada).
   // Kita mendorong nilai HSL (tanpa hsl()) ke custom CSS variables yang dipakai Tailwind: hsl(var(--card))
   const styleVars = {
@@ -124,3 +126,10 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
     </main>
   );
 }
+
+/*
+  CATATAN:
+  - Kalau kamu pakai URL gambar eksternal di <Image>, whitelist domainnya di next.config.js.
+  - Untuk performa terbaik, pakai embed Vimeo/YouTube untuk video berat.
+  - Style warna card di gallery bisa diatur per project via "theme" di data (projects.ts).
+*/
