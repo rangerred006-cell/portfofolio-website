@@ -23,6 +23,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     if (href) {
       return (
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         <a href={href} className={classes} {...(props as any)}>
           {children}
         </a>
@@ -38,5 +39,3 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 Button.displayName = "Button";
-
-// NOTE: JANGAN export { Button } lagi di bawah. Cukup baris di atas.
