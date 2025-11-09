@@ -87,6 +87,7 @@ export const projects: Project[] = [
     ],
   },
 
+  
   // --------------------------------------------------------------------------
   // CONTOH 3: Vimeo (paling ringan, streaming dari Vimeo)
   // --------------------------------------------------------------------------
@@ -114,7 +115,32 @@ export const projects: Project[] = [
     tags: ["Three.js", "WebGL"],
     media: [{ type: "embed", provider: "youtube", id: "dQw4w9WgXcQ" }],
   },
+
+  // --------------------------------------------------------------------------
+  // CONTOH 5: PROJECT BARU (Mobile App Design)
+  // --------------------------------------------------------------------------
+  {
+    slug: "mobile-banking-app-concept",
+    title: "Mobile Banking App Concept",
+    description: "Desain UI/UX konsep untuk aplikasi mobile banking modern dengan fokus pada kemudahan penggunaan dan keamanan.",
+    image: "/images/banking-app-cover.jpg", // cover untuk list di homepage
+    tags: ["UI/UX Design", "Figma", "Prototyping"],
+    media: [
+      // Gambar-gambar mockup
+      { type: "image", src: "/images/banking-mockup-1.jpg", alt: "Home Screen" },
+      { type: "image", src: "/images/banking-mockup-2.jpg", alt: "Transaction Detail" },
+      // Video prototype dari YouTube
+      { type: "embed", provider: "youtube", id: "jNQXAC9IVRw" }, // ganti dengan ID video prototype kamu
+    ],
+    // Warna tema biru-hijau buat nuansa beda
+    theme: { 
+      card: "180 20% 10%", 
+      cardForeground: "180 20% 98%", 
+      border: "180 20% 15%" 
+    },
+  },
 ];
+
 
 // Utility kecil: cari project by slug
 export function getProjectBySlug(slug: string) {
