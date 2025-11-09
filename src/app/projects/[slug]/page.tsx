@@ -15,7 +15,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { projects, getProjectBySlug } from "@/lib/projects";
+import { projects, getProjectBySlug, Media } from "@/lib/projects"; // <<< PERUBAHAN: Import tipe 'Media'
 
 export async function generateStaticParams() {
   // NOTE: Ini supaya semua slug project di-SSG waktu build (App Router).
@@ -85,7 +85,7 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Kalau media kosong, fallback ke 1 gambar cover biar gak blank */}
-            {(project.media?.length ? project.media : [{ type: "image", src: cover }]).map(
+            {(project.media?.length ? project.media : [{ type: "image" as const, src: cover }]).map(
               (m, i) => (
                 <div
                   key={i}
@@ -97,7 +97,8 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
                       {/* NOTE: alt fallback ke judul project kalau alt ga ada */}
                       <Image
                         src={m.src}
-                        alt={(m as any).alt || project.title}
+                        // TypeScript tahu 'm' adalah ImageMedia di sini, jadi 'alt' aman diakses
+                        alt={m.alt || project.title}
                         fill
                         className="object-cover"
                       />
@@ -118,11 +119,12 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
                     <div className="relative aspect-video">
                       {/* NOTE: Provider Vimeo / YouTube pakai iframe.
                                Pastikan embeddable & visible. */}
+                      {/* TypeScript tahu 'm' adalah EmbedMedia di sini, jadi 'provider' dan 'id' aman diakses */}
                       {m.provider === "vimeo" ? (
                         <iframe
                           className="w-full h-full"
-                          src={`https://vimeo.com/1134688724?fl=ip&fe=ec/video/${m.id}`} 
-                          allow="autoplay; fullscreen; picture-in-picture"
+                          src={`https://vimeo.com/${m.id}?fl=ip&fe=ec`} 
+                          allow="autoplay; fullscreen; picture-in-picture" 
                           allowFullScreen
                           title={`${project.title} - Vimeo`}
                         />
